@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import React from 'react';
 import {
 	type ButtonHTMLAttributes,
 	type FC,
@@ -27,17 +28,19 @@ const getColor = (color: ButtonProps['bgColor']) => {
 	}
 };
 
-export const Button: FC<ButtonProps> = ({ bgColor, className, ...props }) => {
+const ButtonComponent: FC<ButtonProps> = ({ bgColor, className, ...props }) => {
 	const style = clsx(btnStyle, getColor(bgColor), 'rounded-lg', className);
 	return <button className={style} {...props} />;
 };
+
+export const Button = React.memo(ButtonComponent);
 
 type LoadingButtonProps = Omit<
 	ButtonHTMLAttributes<HTMLButtonElement>,
 	'disabled' | 'type'
 > & { text: string };
 
-export const LoadingButton: FC<LoadingButtonProps> = ({
+const LoadingButtonComponent: FC<LoadingButtonProps> = ({
 	text,
 	className,
 	...props
@@ -66,6 +69,8 @@ export const LoadingButton: FC<LoadingButtonProps> = ({
 	);
 };
 
+export const LoadingButton = React.memo(LoadingButtonComponent);
+
 type NextButtonProps = {
 	className?: string;
 	bgColor: ButtonProps['bgColor'];
@@ -74,7 +79,7 @@ type NextButtonProps = {
 	entries: string[];
 };
 
-export const NextButton: FC<NextButtonProps> = ({
+const NextButtonComponent: FC<NextButtonProps> = ({
 	className,
 	bgColor,
 	text,
@@ -204,3 +209,5 @@ export const NextButton: FC<NextButtonProps> = ({
 		</div>
 	);
 };
+
+export const NextButton = React.memo(NextButtonComponent);

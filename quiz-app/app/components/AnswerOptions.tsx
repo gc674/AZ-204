@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import type { ChangeEventHandler, Dispatch, FC, SetStateAction } from 'react';
+import React from 'react';
 import { InputStyle } from '~/components/Input';
 import { Markdown } from '~/components/Markdown';
 
@@ -13,7 +14,7 @@ interface AnswerOptionsProps {
 	disabled?: boolean;
 }
 
-export const AnswerOptions: FC<AnswerOptionsProps> = ({
+const AnswerOptionsComponent: FC<AnswerOptionsProps> = ({
 	name,
 	options,
 	checkedValues,
@@ -130,3 +131,5 @@ export const AnswerOptions: FC<AnswerOptionsProps> = ({
 		</ul>
 	);
 };
+
+export const AnswerOptions = React.memo(AnswerOptionsComponent);

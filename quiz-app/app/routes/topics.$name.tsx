@@ -6,7 +6,8 @@ import { Form, Link, useLoaderData, useParams } from 'react-router';
 import { AnswerOptions } from '~/components/AnswerOptions';
 import { Button } from '~/components/Button';
 import { TextInput } from '~/components/Input';
-import { RichMarkdown } from '~/components/RichMarkdown';
+import React, { Suspense } from 'react';
+const RichMarkdown = React.lazy(() => import('~/components/RichMarkdown').then(module => ({ default: module.RichMarkdown })));
 import { getQuestionsByTopic } from '~/lib/qa';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
@@ -60,7 +61,9 @@ export default function Topic() {
 						<span className="font-bold">
 							{params.name} ({index + 1} / {questions.length}):{' '}
 						</span>
-						<RichMarkdown interactive>{question.question}</RichMarkdown>
+						 <Suspense fallback={<div>Loading...</div>}>
+							 <RichMarkdown interactive>{question.question}</RichMarkdown>
+						 </Suspense>
 					</div>
 					{question.options && question.options.length > 0 && (
 						<AnswerOptions
@@ -88,7 +91,9 @@ export default function Topic() {
 						)}
 					>
 						<div className="font-bold">Answer: </div>
-						<RichMarkdown>{question.answer}</RichMarkdown>
+						 <Suspense fallback={<div>Loading...</div>}>
+							 <RichMarkdown>{question.answer}</RichMarkdown>
+						 </Suspense>
 					</div>
 					<div className="mt-12 flex justify-between">
 						<Button

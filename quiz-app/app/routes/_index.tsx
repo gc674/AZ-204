@@ -16,7 +16,8 @@ import {
 import { AnswerOptions } from '~/components/AnswerOptions';
 import { Button, LoadingButton, NextButton } from '~/components/Button';
 import { TextInput } from '~/components/Input';
-import { RichMarkdown } from '~/components/RichMarkdown';
+import React, { Suspense } from 'react';
+const RichMarkdown = React.lazy(() => import('~/components/RichMarkdown').then(module => ({ default: module.RichMarkdown })));
 import { type Question, getQA, getQAById, topics } from '~/lib/qa';
 
 export const meta: MetaFunction = () => {
@@ -169,7 +170,9 @@ function QuestionForm({
 			<input type="hidden" name="type" value={data.topic} />
 			<div className="text-2x">
 				<div className="-mb-4 font-bold text-[var(--color-accent)]">Question: </div>
-				<RichMarkdown interactive>{data.question}</RichMarkdown>
+				 <Suspense fallback={<div>Loading...</div>}>
+					 <RichMarkdown interactive>{data.question}</RichMarkdown>
+				 </Suspense>
 			</div>
 			{data.options && data.options.length > 0 && (
 				<AnswerOptions
@@ -198,7 +201,9 @@ function QuestionForm({
 				)}
 			>
 				<div className="font-bold text-[var(--color-accent)]">Answer: </div>
-				<RichMarkdown>{data.answer}</RichMarkdown>
+				 <Suspense fallback={<div>Loading...</div>}>
+					 <RichMarkdown>{data.answer}</RichMarkdown>
+				 </Suspense>
 			</div>
 			<div className="tems-center mt-12 grid grid-cols-1 gap-y-4 sm:grid-cols-3">
 				<Button

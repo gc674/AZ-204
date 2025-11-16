@@ -33,14 +33,21 @@ const useCodeEditor = () => {
 export const RichMarkdown = ({ interactive, children }: RichMarkdownProps) => {
 	const CodeEditor = useCodeEditor();
 
-	return (
-		   <Markdown
-			   components={{
-			   a: (props) => (
-				   <a className={clsx(props.className, 'text-[var(--color-accent)] underline font-semibold')} {...props}>
-					   {props.children}
-				   </a>
-			   ),
+	   return (
+			  <Markdown
+				  components={{
+				  a: (props) => (
+					  <a
+						  className={clsx(
+							  props.className,
+							  'text-[var(--color-accent)] underline font-semibold focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]'
+						  )}
+						  tabIndex={0}
+						  {...props}
+					  >
+						  {props.children}
+					  </a>
+				  ),
 				   p({ className, children, ...props }) {
 					   return (
 						   <p

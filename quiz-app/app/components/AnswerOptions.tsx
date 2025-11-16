@@ -44,31 +44,33 @@ const AnswerOptionsComponent: FC<AnswerOptionsProps> = ({
 		}
 	};
 
-	return (
-		<ul className="list-none p-0">
-			{options.map((option: string, index: number) => (
-				<li key={`${option}-${index}`} className="mb-2">
-					<label
-						className={clsx(
-							InputStyle,
-							'border border-[var(--color-border)]',
-							(showAnswer || checkedValues.includes(index)) &&
-								answerIndexes.includes(index)
-								? 'bg-green-200 text-black dark:text-black'
-								: checkedValues.includes(index)
-									? 'bg-red-200 text-black dark:text-black'
-									: 'bg-[var(--color-surface)] text-[var(--color-text)]',
-						)}
-					>
-						<input
-							type={answerIndexes.length < 2 ? 'radio' : 'checkbox'}
-							checked={checkedValues.includes(index)}
-							onChange={handleChange}
-							className="hidden"
-							value={index}
-							name={name}
-							disabled={disabled}
-						/>
+	   return (
+		   <ul className="list-none p-0">
+			   {options.map((option: string, index: number) => (
+				   <li key={`${option}-${index}`} className="mb-2">
+					   <label
+						   className={clsx(
+							   InputStyle,
+							   'border border-[var(--color-border)] cursor-pointer relative',
+							   (showAnswer || checkedValues.includes(index)) &&
+								   answerIndexes.includes(index)
+								   ? 'bg-green-200 text-black dark:text-black'
+								   : checkedValues.includes(index)
+									   ? 'bg-red-200 text-black dark:text-black'
+									   : 'bg-[var(--color-surface)] text-[var(--color-text)]',
+							   'focus-within:outline-none focus-within:ring-2 focus-within:ring-[var(--color-accent)] focus-within:ring-offset-2',
+						   )}
+					   >
+						   <input
+							   type={answerIndexes.length < 2 ? 'radio' : 'checkbox'}
+							   checked={checkedValues.includes(index)}
+							   onChange={handleChange}
+							   className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 opacity-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--color-accent)]" 
+							   value={index}
+							   name={name}
+							   disabled={disabled}
+							   aria-checked={checkedValues.includes(index)}
+						   />
 						<Markdown
 							components={
 								(showAnswer || checkedValues.includes(index)) && answerIndexes.includes(index)

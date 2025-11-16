@@ -13,7 +13,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const btnStyle =
-	'flex items-center justify-center text-center font-medium text-xs sm:text-sm px-2.5 py-4 sm:px-5 sm:py-2.5 shadow-xs transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-offset-2';
+	'flex items-center justify-center text-center font-medium text-xs sm:text-sm px-2.5 py-4 sm:px-5 sm:py-2.5 shadow-xs transition-all duration-200 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] focus:ring-2 focus:ring-offset-2';
 
 const getColor = (color: ButtonProps['bgColor']) => {
 	switch (color) {
